@@ -34,7 +34,7 @@ export default function PokemonByType() {
         setFilteredPokemon(filteredArray)
     }, [filters, pokemon, pokemonType.pokemon])
 
-    // Getting abolsute index for each pokemon
+    // Getting absolute index for each pokemon
     const pokemonIndex = pokemonSearch.results.map((poke) => {
         return poke.name
     })
