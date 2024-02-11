@@ -1,8 +1,7 @@
-<<<<<<< HEAD
 # Pokemon API
 
 # Description
-This is the second project we have completed as part of the Software Engineering Immersive program at General Assembly, taking place between 22/11/23 and 24/11/23. The project brief required that we build a React application that consumes a public API, contains several components, contains a router, and be deployed online.
+This is the second project we have completed as part of the Software Engineering Immersive program at General Assembly, taking place between 22/11/23 and 24/11/23. The project brief required that we build a React application that consumes a public API, contains several components, contains a router and is deployed online.
 
 # Deployment link: https://pokemonapi-ga.netlify.app/
 
@@ -24,29 +23,29 @@ Include wireframes that you designed before building the app
 Be deployed online and accessible to the public 
 Necessary Deliverables:
 A working application, hosted somewhere on the internet
-A link to your hosted working app in the URL section of your Github repo
-A git repository hosted on Github, with a link to your hosted project, and frequent commits dating back to the very beginning of the project
+A link to your hosted working app in the URL section of your GitHub repo
+A git repository hosted on GitHub, with a link to your hosted project, and frequent commits dating back to the very beginning of the project
 A readme.md file with:
 Explanations of the technologies used
 A couple of paragraphs about the general approach you took
 Installation instructions for any dependencies
-Link to your wireframes – sketches of major views / interfaces in your application
+Link to your wireframes – sketches of major views/interfaces in your application
 Descriptions of any unsolved problems or major hurdles your team had to overcome
 ​
 # Planning
-Ata and I pair-coded the entire project, and to start off we drew a simple wireframe sketch to show the paths and elements we wanted from the different pages of our single page application. We wanted to include a dropdown to filter through pokemon by different types, the generation of game they first appeared in, and the region they were from. However, generation and region proved to be very difficult to access given that the endpoint for all pokemon only included the pokemon’s name and a url link to that individual pokemon’s API. This issue meant that we had to implement a lot of workarounds to display a picture for every pokemon when displaying all of their names.
-We wanted to create a page that displayed every pokemon and picture of that pokemon, with the ability to click on any pokemon and move to a page that displayed its name, picture, types, and statistics.
+Ata and I pair-coded the entire project, and to start off we drew a simple wireframe sketch to show the paths and elements we wanted from the different pages of our single-page application. We wanted to include a dropdown to filter through Pokemon by different types, the generation of game they first appeared in, and the region they were from. However, generation and region proved to be very difficult to access given that the endpoint for all Pokemon only included the Pokemon’s name and a URL link to that individual Pokemon’s API. This issue meant that we had to implement a lot of workarounds to display a picture for every Pokemon when displaying all of their names.
+We wanted to create a page that displayed every Pokemon and picture of that Pokemon, with the ability to click on any Pokemon and move to a page that displayed its name, picture, types, and statistics.
 
 # Build/Code Process
 Rendering:
-We started by creating paths, elements, and loaders for the home, index, and single view pages. Our first priority was to render the data we wanted from the API on each of these pages as this was a fairly new concept to us. It proved difficult to access the relevant data due to the fact that the endpoint for all Pokemon contained only each Pokemon’s name and the url for that specific Pokemon’s endpoint, more detail on this issue is provided in the challenges section.
+We started by creating paths, elements, and loaders for the home, index, and single-view pages. Our first priority was to render the data we wanted from the API on each of these pages as this was a fairly new concept to us. It proved difficult to access the relevant data due to the fact that the endpoint for all Pokemon contained only each Pokemon’s name and the URL for that specific Pokemon’s endpoint, more detail on this issue is provided in the challenges section.
 
 Filters:
-After the data was rendering in the desired way we moved our attention to the dropdown that would allow users to filter Pokemon by type. Due to the aforementioned issue with getting information from all Pokemon in the all-Pokemon endpoint we had to think of a workaround to access each pokemon’s type(s) without making thousands of calls to each of their endpoints. We found an endpoint in the API’s documentation that contains all Pokemon types, and in each type it lists all the names of the Pokemon that have this type. Using this endpoint we created a new React element that looked identical to the index page but instead made a call to the type endpoint and rendered all the Pokemon contained within that type.
+After the data was rendered in the desired way we moved our attention to the dropdown that would allow users to filter Pokemon by type. Due to the aforementioned issue with getting information from all Pokemon in the all-Pokemon endpoint, we had to think of a workaround to access each Pokemon’s type(s) without making thousands of calls to each of their endpoints. We found an endpoint in the API’s documentation that contains all Pokemon types, and in each type, it lists all the names of the Pokemon that have this type. Using this endpoint we created a new React element that looked identical to the index page but instead made a call to the type endpoint and rendered all the Pokemon contained within that type.
 
 The options of the dropdown bar are populated dynamically from the Pokemon types endpoint instead of being hard-coded, so if more types were to be added they would automatically be added to the dropdown and the filtered page would render correctly.
 
-The search-bar uses Regex expressions and a filter array method to match the pattern found in the search-bar at a given time to the name of any Pokemon being rendered on either the all-Pokemon or filter page.
+The search bar uses Regex expressions and a filter array method to match the pattern found in the search bar at a given time to the name of any Pokemon being rendered on either the all-Pokemon or filter page.
 
 const [pokemon, setPokemon] = useState(pokemonType.pokemon)
     const [filters, setFilters] = useState('')
@@ -68,14 +67,14 @@ const [pokemon, setPokemon] = useState(pokemonType.pokemon)
     }, [filters, pokemon, pokemonType.pokemon])
 
 Images:
-We wanted to display an image for each Pokemon on the index and filter pages, however neither endpoints used to render the Pokemon on these pages contained an image url. The only endpoint in which this was found was the single view page. Luckily the urls were exactly the same for each Pokemon except for the last number, which corresponded to the Pokedex number of each Pokemon. So we gave each Pokemon an absolute index starting at 1 and increasing by 1 for each Pokemon, and then inserted the index into a loop that would render each image url.
+We wanted to display an image for each Pokemon on the index and filter pages, however neither endpoints used to render the Pokemon on these pages contained an image URL. The only endpoint in which this was found was the single view page. Luckily the URLs were exactly the same for each Pokemon except for the last number, which corresponded to the Pokedex number of each Pokemon. So we gave each Pokemon an absolute index starting at 1 and increasing by 1 for each Pokemon and then inserted the index into a loop that would render each image URL.
 
     // Getting absolute index for each pokemon
     const pokemonIndex = pokemonSearch.results.map((poke) => {
         return poke.name
     })
 
-We then realised that the regional/variant pokemon image urls started at 10,000 for whatever reason, so we had to write conditional logic that accounted for this.
+We then realised that the regional/variant Pokemon image URLs started at 10,000 for whatever reason, so we had to write conditional logic that accounted for this.
 
 if (pokemonIndex.indexOf(creature.pokemon.name) + 1 <= 1017) {
  
@@ -96,86 +95,18 @@ Styling:
 The final task was to style our application using SCSS. Our design is fairly simple but we ensured to include a few reactive elements. I.e. the boxes that contain the Pokemon’s type on the single view page are automatically coloured according to the type, e.g. a fire type will always have an orange box.
 
 # Challenges
-Our biggest challenge was navigating how to use an API that only stored each Pokemon’s name and the url of their individual endpoint, which contained their image urls and type(s) that we wanted to display on our index page. A solution to part of the problem was using multiple API calls in a single loader, allowing us to render all Pokemon on the index page as well as all the Pokemon types to populate the filter dropdown options. We did not know that this was something we could do so it took a while to find this solution.
-Another work-around we used was dynamically changing the number passed into the image urls as mentioned in the Build/Code Process earlier.
+Our biggest challenge was navigating how to use an API that only stored each Pokemon’s name and the URL of their individual endpoint, which contained their image URLs and type(s) that we wanted to display on our index page. A solution to part of the problem was using multiple API calls in a single loader, allowing us to render all Pokemon on the index page as well as all the Pokemon types to populate the filter dropdown options. We did not know that this was something we could do so it took a while to find this solution.
+Another workaround we used was dynamically changing the number passed into the image URLs as mentioned in the Build/Code Process earlier.
 
-Another challenge we faced was getting our search bar to work. We worked until late on Thursday evening trying to figure it out but then called it a night and said we would try again tomorrow and/or ask for some help. The issue was the state variable we wanted to use to store and update the array of filtered pokemon for the pokemon-by-type page was not updating each time the page was filtered using the search bar. So after a few hours being away from my PC, I figured out how to fix this, and also realised we were not selecting each pokemon’s name correctly. Once these two issues were fixed, the search bar worked as intended.
+Another challenge we faced was getting our search bar to work. We worked until late on Thursday evening trying to figure it out but then called it a night and said we would try again tomorrow and/or ask for some help. The issue was the state variable we wanted to use to store and update the array of filtered Pokemon for the Pokemon-by-type page was not updating each time the page was filtered using the search bar. So after a few hours being away from my PC, I figured out how to fix this, and also realised we were not selecting each Pokemon’s name correctly. Once these two issues were fixed, the search bar worked as intended.
 
 # Wins
 Coming up with the solutions to our challenges mentioned above was certainly a big win. Another win was that we were very happy with the styling, which I assumed would take longer as we hadn’t used many of its features in the past but it went fairly well.
 
 # Key Learnings/Takeaways
-I feel a lot more confident with using React and APIs in general now that I have more experience working with them. I have a better understanding of how I can use loaders and states to select, manipulate, and render the data from an API that I choose. It was also a great experience to work in a pair for this project. Ata was a pleasure to work with as a person and as a teammate, he was extremel;y helpful in pointing out errors in the code as I was typing and in coming up with clever solutions to problems we were having. A second set of eyes is really useful when coding and I hope to continue working in a team within this course and when I start my career.
+I feel a lot more confident with using React and APIs in general now that I have more experience working with them. I have a better understanding of how I can use loaders and states to select, manipulate, and render the data from an API that I choose. It was also a great experience to work in a pair for this project. Ata was a pleasure to work with as a person and as a teammate, he was extremely helpful in pointing out errors in the code as I was typing and in coming up with clever solutions to problems we were having. A second set of eyes is really useful when coding and I hope to continue working in a team within this course and when I start my career.
 
 # Bugs: There are currently no bugs in this application that we have identified
 
 # Future Improvements
-It would be nice to add more filters to the dropdown tab. We had an idea to create a nested dropdown to allow users to search for pokemon by type and the generation of game they first appeared in, but we did not have enough time to implement this. We could also include spinners to take the place of the pokemon images as they load in to create a more responsive design, but again we were limited by the short window of this project.
-=======
-Project 2: PokemonAPI ReadMe
-
-# Description
-This is the second project we have completed as part of the Software Engineering Immersive program with General Assembly, taking place between 22/11/23 and 24/11/23. The project brief required that we build a React application that consumes a public API, contains several components, contains a router and is deployed online.
-
-# Deployment Link
-https://pokemonapi-ga.netlify.app/
-
-# Timeframe & Working Team (Pair)
-This was a paired project between Ata Abatay (https://github.com/ataabatay) and Dan Edmunds (https://github.com/DanEdmunds1)
-
-# Technologies Used
-React, HTML, SCSS, Javascript
-
-# Brief
-
-Overview
-The second project is to **build a React application** that consumes a **public API**.
-​
-Technical Requirements
-Your app must:
-* **Consume a public API** – this could be anything but it must make sense for your project.
-* **Have several components**
-* **The app can have a router** - with several "pages", this is up to you and if it makes sense for your project.
-* **Include wireframes** - that you designed before building the app.
-* **Be deployed online** and accessible to the public (hosted on your public Git Hub, not GA Git Hub!)
-
-Necessary Deliverables:
-* A **working application**, hosted somewhere on the internet
-* A **link to your hosted working app** in the URL section of your Github repo
-* A **git repository hosted on GitHub**, with a link to your hosted project, and frequent commits dating back to the _very beginning_ of the project
-* **A `readme. md` file** with:
- * Explanations of the **technologies** used
-   * A couple of paragraphs about the **general approach you took**
-   * **Installation instructions** for any dependencies
-   * Link to your **wireframes** – sketches of major views/interfaces in your application
-  * Descriptions of any **unsolved problems** or **major hurdles** your team had to overcome
-
-# Planning
-We drew a simple wireframe sketch to show the paths and elements we wanted from the different pages of our single-page application. We wanted to include a dropdown to filter through Pokemon by different types, the generation of game they first appeared in, and the region they were from. However, generation and region proved to be very difficult to access given that the endpoint for all Pokemon only included the Pokemon’s name and a URL link to that individual Pokemon’s API. This issue meant that we had to implement a lot of workarounds to display a picture for every Pokemon when displaying all of their names.
-We wanted to create a page that displayed every Pokemon and picture of that Pokemon, with the ability to click on any Pokemon and move to a page that displayed its name, picture, types, and statistics.
-
-# Build/Code Process
-We started by creating a page for the home screen, a page to display all Pokemon, and a page to display the data of a single Pokemon. Then we created the loaders for each page to fetch from the correct endpoint. After this, we rendered the data from the API to the pages and started to work on the dropdown bar and the search bar. Getting the dropdown bar to work took a lot of our time because we used a different endpoint to filter by a Pokemon type due to the structure of the API. Therefore we made a separate page to display filtered Pokemon which looks almost identical to the page that displays all the Pokemon, but the rendering code looks a lot different.
-We used each type from the API to create the dropdown itself instead of hard-coding it. To display the Pokemon we accessed an object from the Pokemon types endpoint that stored the names of all the Pokemon that possessed each specific type. Though much like the endpoint for all Pokemon, this endpoint did not provide pictures for each Pokemon. To solve this issue for both endpoints we found that the images stored in each individual Pokemon’s API had the same URL link but with a number on the end corresponding to their pokedex index. So looped over every Pokemon and gave them a universal index, when pokemon was mapped over, we used this index to determine the end of the URL for their image, allowing us to show the correct image for each Pokemon.
-
-After the dropdown filter was complete, we got to work on the search bar. It took a while to figure out how to use Regex and the filter array method but after some trial and error, we got it working.
-
-The final task was to style our application using SCSS, which did not take much time but we are glad we kept some time aside for this process. Once we were done we went back and added a button to the home page that will take the user to a random Pokemon’s page.
-
-# Challenges
-Our biggest challenge was navigating how to use an API that only stored each Pokemon’s name and the URL of their individual API, which contained the images we wanted to display on the all-pokemon page, along with a lot of other useful information. We had to ask for help on using multiple loaders for a page, and once we were told it was possible it took a while to figure out how to properly use and implement this to achieve the results we wanted. But I am very happy with how the application turned out.
-Another challenge we faced was getting our search bar to work. We worked until late on Thursday evening trying to figure it out but then called it a night and said we would try again tomorrow and/or ask for some help. The issue was the state variable we wanted to use to store and update the array of filtered Pokemon for the Pokemon-by-type page was not updating each time the page was filtered using the search bar. So after a few hours being away from my PC, I figured out how to fix this, and also realised we were not selecting each Pokemon’s name correctly. Once these two issues were fixed, the search bar worked as intended which was great to see.
-
-
-# Wins
-Coming up with the solutions to our challenges mentioned above was certainly a big win. Another win was that we were very happy with the styling, which I assumed would take longer as I hadn’t used many of its features in the past but it went fairly quickly and smoothly.
-
-# Key Learnings/Takeaways
-I feel a lot more confident with using React and APIs in general now that I have more experience working with them. I have a better understanding of how I can use loaders and states to select, manipulate, and render the data from an API that I choose. It was also a great experience to work in a pair for this project. Ata was a pleasure to work with as a person and as a teammate, he was extremely helpful in pointing out errors in the code as I was typing and in coming up with clever solutions to problems we were having. A second set of eyes is really useful when coding and I hope to continue working in a team within this course and when I start my career.
-
-# Bugs
-There are currently bugs in this application that we have identified
-
-# Future Improvements
 It would be nice to add more filters to the dropdown tab. We had an idea to create a nested dropdown to allow users to search for Pokemon by type and the generation of game they first appeared in, but we did not have enough time to implement this. We could also include spinners to take the place of the Pokemon images as they load in to create a more responsive design, but again we were limited by the short window of this project.
->>>>>>> f720ba99bc35144e8f52b3ba705885c94ba898b7
